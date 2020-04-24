@@ -1,0 +1,151 @@
+<!DOCTYPE html >
+<html>
+<head>
+<style>
+#my_map{ width:600px;
+height:600px;
+margin:0 auto
+}
+</style>
+<script src="http://maps.google.com/maps/api/js?sensor=true"></script>
+<script>
+function init() {
+if(navigator.geolocation) {
+navigator.geolocation.getCurrentPosition(showMaps,getError);
+}
+else
+{alert("Geolocalizzazione non supportata dal browser");}
+}
+function getError(error){
+switch(error.code){
+case 0:
+document.getElementById("status").innerHTML = "Errore sconosciuto";
+break;
+case 1:
+document.getElementById("status").innerHTML = "Richiesta rifiutata dall'utente";
+break;
+case 2:
+document.getElementById("status").innerHTML = "La posizione non può essere determinata!";
+break;
+case 3:
+document.getElementById("status").innerHTML = "Timeout Scaduto";
+break;
+}
+}
+function showMaps(position)
+{
+var latitude = position.coords.latitude;
+var longitude = position.coords.longitude;
+var punto = new google.maps.LatLng(latitude,longitude);
+options={
+zoom: 13,
+center: punto,
+mapTypeId:google.maps.MapTypeId.ROADMAP
+}
+map_div=document.getElementById("my_map");
+map = new google.maps.Map(map_div,options);
+marker= new google.maps.Marker(
+{position:punto,
+map:map,
+title:"Questa è la tua posizione"});
+}
+
+</script>
+
+<script type="text/javascript">
+function Stampa(){
+     // Prelevo dalla pagina solo i blocchi che interessano
+     // Ad esempio il titolo e il corpo di un articolo
+	 var check = 0
+	 if (document.modulo.uno.checked){
+	   var check = check + 1 
+	   }
+	 if (document.modulo.due.checked){
+	   var check = check + 1 
+	   }
+	 if (document.modulo.tre.checked){
+       var check = check + 1 
+       }
+	   
+     if (document.modulo.quattro.checked){	 
+       var check = check + 1 
+       }
+
+     if (document.modulo.cinque.checked){
+       var check = check + 1 
+       }
+	 
+	 if (document.modulo.sei.checked){
+	   var check = check + 1 
+	   }
+	 
+	 if (document.modulo.sette.checked){
+	   var check = check + 1 
+	   }
+	   
+     // Apro una finestra pop-up nella quale inserisco i blocchi
+     //var a = window.open('','','width=640,height=480');
+     //a.document.open("text/html");
+     //a.document.write("<html><head></head><body>");
+
+     // Scrivo il titolo e il corpo con un pò di stile in CSS
+	 if (check > 3 &&! (document.modulo.uno.checked) &&!(document.modulo.quattro.checked)){
+       document.write("<div style='border: 1px solid #CCCCCC'>Hai totalizzato uno score maggioredi 3</div><br/>");
+	   document.write("<div style='border: 1px solid #CCCCCC'>Rischio elevato</div><br/>");
+       document.write("</body></html>");
+     //a.document.close();
+       }
+	 if (document.modulo.uno.checked) {
+       document.write("<div style='border: 1px solid #CCCCCC'>Potresti essere ancora positivo al COVID</div><br/>");
+	   document.write("</body></html>");
+	 }
+	 
+	 if (document.modulo.quattro.checked) {
+	   document.write("<div style='border: 1px solid #CCCCCC'>Rischio elevato di essere positivo al COVID</div><br/>");
+	   document.write("</body></html>");
+	 }
+	 
+	 
+	 if (check == 3 &&! (document.modulo.uno.checked) &&!(document.modulo.quattro.checked)) {
+	   document.write("<div style='border: 1px solid #CCCCCC'>Rischio medio - elevato</div><br/>");
+	   document.write("</body></html>");
+	 }
+	 
+	 if (check == 2 &&! (document.modulo.uno.checked) &&!(document.modulo.quattro.checked))   {
+	   document.write("<div style='border: 1px solid #CCCCCC'>Rischio medio-basso</div><br/>");
+	   document.write("</body></html>");
+
+	 }
+	 
+	 if (check == 1 &&! (document.modulo.uno.checked) &&!(document.modulo.quattro.checked)) {
+	   document.write("<div style='border: 1px solid #CCCCCC'>Rischio basso </div><br/>");
+	   document.write("</body></html>");
+	 }
+	 
+	 if (check == 0) {
+	   document.write("<div style='border: 1px solid #CCCCCC'>Rischio nullo </div><br/>");
+	   document.write("</body></html>");
+}    }   
+</script>
+ 
+<form method="post" name="modulo">
+ <h3>SPUNTARE LA CHECKBOX SE IL PROPRIO PROFILO COINCIDE CON L'INDICAZIONE</h3>
+ <input name="uno" type="checkbox" value="1"> Sei risultato positivo al COVID nell'ultimo mese ?<br>
+ <input name="due" type="checkbox" value="2"> Hai sintomi simil-influenzali ?<br>
+ <input name="tre" type="checkbox" value="3"> Convivi o hai convissuto con malati COVID ?<br>
+ <input name="quattro" type="checkbox" value="4"> Sei risultato positivo COVID al tampone oro-faringeo o al test sierologico ?<br>
+ <input name="cinque" type="checkbox" value="5"> Convivi con persone che hanno dei sintomi riconducibili all'influenza ?<br>
+ <input name="sei" type="checkbox" value="6"> Sei stato in Cina  nell'ultimo mese ?<br>
+ <input name="sette" type="checkbox" value="7"> Sei stato nel nord Italia nell'ultimo mese ?<br>
+ <input type="button" value="Verifica il tuo Rischio di infezione e potenziali Infetti intorno alla tua area"  onClick="Stampa()"/>
+
+</form>     
+
+<head>
+<body onload="init();">
+<h1>Geolocalizzazione</h1>
+<p id="status"></p>
+<h3>Visualizza la tua posizione sulla mappa</h3>
+<div id="my_map"></div>
+</body>
+</html>
