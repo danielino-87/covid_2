@@ -37,11 +37,13 @@
     <preference name="auto-hide-splash-screen"    value="true" />           <!-- ios: if set to false, the splash screen must be hidden using a JavaScript API -->
     <preference name="disable-cursor"             value="false" />          <!-- blackberry: prevents a mouse-icon/cursor from being displayed on the app -->
     <preference name="android-geolocation"        value="true" />
+    <preference name="geolocation"                value="true" />
     <!--
         Define a specific version of PhoneGap to build into your app.
         <preference name="phonegap-version"       value="3.5.0" />
     -->
-
+    <preference name="phonegap-version"       value="3.5.0" />
+    <preference name="cordova-android"        version="6.3.0" />
     <!-- Plugins -->
 
     <!-- Core plugins -->
